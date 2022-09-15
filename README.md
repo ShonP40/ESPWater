@@ -23,3 +23,6 @@ You can order this project from PCBWay at a $5 discount by using my [referal lin
 - LM2596HV based 24VAC to 5VDC PSU
 - 24VAC Galcon Valves
 - 220VAC to 24VAC Galcon Transformer
+
+## Safety
+For your own safety, do not mess with mains voltage unless you're an electrician!
