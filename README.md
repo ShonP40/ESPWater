@@ -24,5 +24,9 @@ You can order this project from PCBWay at a $5 discount by using my [referal lin
 - 24VAC Galcon Valves
 - 220VAC to 24VAC Galcon Transformer
 
+## Board preview
+![Assembled](./PCB/Photos/05%20-%20Assembled.jpeg)
+More pictures can be found [here](./PCB/Photos)
+
 ## Safety
 For your own safety, do not mess with mains voltage unless you're an electrician!
