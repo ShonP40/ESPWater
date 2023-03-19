@@ -105,10 +105,12 @@ sensor:
     address: 0x44
     update_interval: 60s
 
-switch:
+button:
   - platform: restart
-    name: "${friendly_name} ESP Restart"
+    id: restart_button
+    name: "${friendly_name} Restart"
 
+switch:
 # Valves
   - platform: gpio
     name: "Valve 1"
