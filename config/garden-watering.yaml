@@ -2,7 +2,7 @@ substitutions:
   name: "garden-watering"
   friendly_name: "Garden Watering"
   id: "garden_watering"
-  relay_restore_mode: RESTORE_DEFAULT_OFF
+  valve_restore_mode: RESTORE_AND_CALL
   project_name: "ShonP40.ESPWater"
   project_version: "1.0"
 
@@ -31,13 +31,20 @@ logger:
 
 # Enable Home Assistant API
 api:
+  on_client_disconnected:
+      then:
+        - valve.close: valve_1
+        - valve.close: valve_2
+        - valve.close: valve_3
+        - valve.close: valve_4
 
 ota:
+  platform: esphome
   password: !secret ota_password
 
 web_server:
   port: 80
-  version: 2
+  version: 3
   auth:
     username: !secret web_server_username
     password: !secret web_server_password
@@ -70,7 +77,13 @@ bme680_bsec:
   state_save_interval: 6h
   sample_rate: lp
 
+binary_sensor:
+  - platform: status
+    name: "${friendly_name} Status"
+
 sensor:
+  - platform: uptime
+    name: "${friendly_name} Uptime Sensor"
   - platform: wifi_signal
     name: "${friendly_name} WiFi Signal"
     update_interval: 60s
@@ -105,34 +118,110 @@ sensor:
     address: 0x44
     update_interval: 60s
 
+# PMWCS3 (comment this out if you aren't using a PMWCS3 sensor)
+  - platform: pmwcs3
+    e25:
+      name: "Soil E25"
+    ec:
+      name: "Soil EC"
+    temperature:
+      name: "Soil Temperature"
+    vwc:
+      name: "Soil VWC"
+
 button:
   - platform: restart
     id: restart_button
     name: "${friendly_name} Restart"
 
 switch:
-# Valves
   - platform: gpio
+    id: valve_1_switch
+    pin: D5
+    internal: true
+  - platform: gpio
+    id: valve_2_switch
+    pin: D6
+    internal: true
+  - platform: gpio
+    id: valve_3_switch
+    pin: D7
+    internal: true
+  - platform: gpio
+    id: valve_4_switch
+    pin: D8
+    internal: true
+
+valve:
+  - platform: template
     name: "Valve 1"
     id: valve_1
-    pin: D5
-    icon: mdi:pipe-valve
-    restore_mode: ${relay_restore_mode}
-  - platform: gpio
+    device_class: water
+    lambda: |-
+      if (id(valve_1_switch).state) {
+        return VALVE_OPEN;
+      } else {
+        return VALVE_CLOSED;
+      }
+    open_action:
+      - switch.turn_on: valve_1_switch
+    close_action:
+      - switch.turn_on: valve_1_switch
+    stop_action:
+      - switch.turn_on: valve_1_switch
+    optimistic: true
+    restore_mode: ${valve_restore_mode}
+  - platform: template
     name: "Valve 2"
     id: valve_2
-    pin: D6
-    icon: mdi:pipe-valve
-    restore_mode: ${relay_restore_mode}
-  - platform: gpio
+    device_class: water
+    lambda: |-
+      if (id(valve_2_switch).state) {
+        return VALVE_OPEN;
+      } else {
+        return VALVE_CLOSED;
+      }
+    open_action:
+      - switch.turn_on: valve_2_switch
+    close_action:
+      - switch.turn_on: valve_2_switch
+    stop_action:
+      - switch.turn_on: valve_2_switch
+    optimistic: true
+    restore_mode: ${valve_restore_mode}
+  - platform: template
     name: "Valve 3"
     id: valve_3
-    pin: D7
-    icon: mdi:pipe-valve
-    restore_mode: ${relay_restore_mode}
-  - platform: gpio
+    device_class: water
+    lambda: |-
+      if (id(valve_3_switch).state) {
+        return VALVE_OPEN;
+      } else {
+        return VALVE_CLOSED;
+      }
+    open_action:
+      - switch.turn_on: valve_3_switch
+    close_action:
+      - switch.turn_on: valve_3_switch
+    stop_action:
+      - switch.turn_on: valve_3_switch
+    optimistic: true
+    restore_mode: ${valve_restore_mode}
+  - platform: template
     name: "Valve 4"
     id: valve_4
-    pin: D8
-    icon: mdi:pipe-valve
-    restore_mode: ${relay_restore_mode}
+    device_class: water
+    lambda: |-
+      if (id(valve_4_switch).state) {
+        return VALVE_OPEN;
+      } else {
+        return VALVE_CLOSED;
+      }
+    open_action:
+      - switch.turn_on: valve_4_switch
+    close_action:
+      - switch.turn_on: valve_4_switch
+    stop_action:
+      - switch.turn_on: valve_4_switch
+    optimistic: true
+    restore_mode: ${valve_restore_mode}

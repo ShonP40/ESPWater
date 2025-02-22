@@ -19,6 +19,7 @@ You can order this project from PCBWay at a $5 discount by using my [referal lin
 - WeMos D1 Mini ESP8266
 - 5V BME680 sensor
 - 3.3V SHT3X-D sensor
+- 3.3V PMWCS3 sensor
 - 2-pin KF301 connectors
 - LM2596HV based 24VAC to 5VDC PSU
 - 24VAC Galcon Valves
