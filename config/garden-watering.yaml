@@ -166,9 +166,9 @@ valve:
     open_action:
       - switch.turn_on: valve_1_switch
     close_action:
-      - switch.turn_on: valve_1_switch
+      - switch.turn_off: valve_1_switch
     stop_action:
-      - switch.turn_on: valve_1_switch
+      - switch.turn_off: valve_1_switch
     optimistic: true
     restore_mode: ${valve_restore_mode}
   - platform: template
@@ -184,9 +184,9 @@ valve:
     open_action:
       - switch.turn_on: valve_2_switch
     close_action:
-      - switch.turn_on: valve_2_switch
+      - switch.turn_off: valve_2_switch
     stop_action:
-      - switch.turn_on: valve_2_switch
+      - switch.turn_off: valve_2_switch
     optimistic: true
     restore_mode: ${valve_restore_mode}
   - platform: template
@@ -202,9 +202,9 @@ valve:
     open_action:
       - switch.turn_on: valve_3_switch
     close_action:
-      - switch.turn_on: valve_3_switch
+      - switch.turn_off: valve_3_switch
     stop_action:
-      - switch.turn_on: valve_3_switch
+      - switch.turn_off: valve_3_switch
     optimistic: true
     restore_mode: ${valve_restore_mode}
   - platform: template
@@ -220,8 +220,8 @@ valve:
     open_action:
       - switch.turn_on: valve_4_switch
     close_action:
-      - switch.turn_on: valve_4_switch
+      - switch.turn_off: valve_4_switch
     stop_action:
-      - switch.turn_on: valve_4_switch
+      - switch.turn_off: valve_4_switch
     optimistic: true
     restore_mode: ${valve_restore_mode}
